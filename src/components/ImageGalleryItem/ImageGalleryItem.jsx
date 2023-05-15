@@ -1,36 +1,18 @@
-import React from 'react';
-import css from 'components/ImageGalleryItem/ImageGalleryItem.module.css';
-import { Lightbox } from 'react-modal-image';
+import { StyledImageGalleryItem, GalleryItemImage } from './ImageGalleryItem.styled';
 import PropTypes from 'prop-types';
 
-const ImageGalleryItem = ({
-  myData,
-  currentImageIndex,
-  open,
-  clickImage,
-  closeLightbox,
-}) => (
-  <div className={css.ImageGallery}>
-    {myData.map((hit, index) => (
-      <li key={hit.id} className={css.ImageGalleryItem}>
-        <img
-          className={css.ImageGalleryItem_image}
-          src={hit.webformatURL}
-          alt={hit.tags}
-          onClick={() => clickImage(index)}
-        />
-      </li>
-    ))}
-
-    {open && (
-      <Lightbox
-        medium={myData[currentImageIndex].largeImageURL}
-        alt={myData[currentImageIndex].tags}
-        onClose={closeLightbox}
-      />
-    )}
-  </div>
-);
-
+const ImageGalleryItem = ({ toggleModal, smallImageUrl, largeImageUrl }) => {
+    return <>
+        <StyledImageGalleryItem>
+            <GalleryItemImage src={smallImageUrl} alt="" data-url={largeImageUrl} onClick={toggleModal} />
+        </StyledImageGalleryItem>
+    </>
+}
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+    toggleModal: PropTypes.func.isRequired,
+    smallImageUrl: PropTypes.PropTypes.string.isRequired,
+    largeImageUrl: PropTypes.PropTypes.string.isRequired,
+}
